@@ -25,33 +25,26 @@ get_name()
 }
                                                             
 FN1=$3
-#FN2=""
-#FN3=""
-                                                            
+
 NN1=$(get_name "${FN1}")
-#NN2=$(get_name "${FN2}")
-#NN3=$(get_name "${FN3}")
-     
-avi=$/volume1/Storage\ Unit/^Complete/"${FN1}.avi"
-mp4=$/volume1/Storage\ Unit/^Complete/"${FN1}.mp4"
-mkv=$/volume1/Storage\ Unit/^Complete/"${FN1}.mkv"
-
-1=$(/volume1/Storage\ Unit/^Departures/"${NN1}.avi")
-2=$(NN1)
-
-mv /volume1/Storage\ Unit/^Complete/"${FN1}.avi" /volume1/Storage\ Unit/^Departures/"${NN1}.avi"
-#!/usr/bin/env python autoProcessTV.py()
-echo "${FN1} -> ${NN1} plus python"
 
 
-
-
-
-
+if [ -f /volume1/Storage\ Unit/^Complete/"${FN1}.avi" ]
+    then
+        mv /volume1/Storage\ Unit/^Complete/"${FN1}.avi" /volume1/Storage\ Unit/^Departures/"${NN1}.avi"
+        echo "${FN1} -> ${NN1} (Complete->Departures)"
+    elif [ -f /volume1/Storage\ Unit/^Departures/"${FN1}.avi" ]
+        then
+            mv /volume1/Storage\ Unit/^Departures/"${FN1}.avi" /volume1/Storage\ Unit/^Departures/"${NN1}.avi"
+            echo "${FN1} -> ${NN1} (Departures->Departures)"
+    elif [ -f /volume1/Storage\ Unit/^Complete/TooDamnHigh/"${FN1}.avi" ]
+        then
+            mv /volume1/Storage\ Unit/^Complete/TooDamnHigh/"${FN1}.avi" /volume1/Storage\ Unit/^Complete/TooDamnHigh/Watched/"${NN1}.avi"
+            echo "TooDamnHigh <3 BBC ${FN1} -> ${NN1} (TooDamnHigh->Watched)"
+    else
+        echo "Where is this? I only try Complete, Departures, and TooDamnHigh."
+fi
 
 
 
-                                                            
 #echo "${FN1} -> ${NN1} and $@"
-#echo "${FN2} -> ${NN2}"
-#echo "${FN3} -> ${NN3}"
