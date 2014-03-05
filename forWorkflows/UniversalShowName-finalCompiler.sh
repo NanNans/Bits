@@ -17,7 +17,7 @@ echo "${NEW}"
 
 SHOWEP=$(parse_name "${LONG}")
 #puts it all together, extracting season number from HEYLOOK and putting in place of HOLDER
-WITHSEASON=$(echo "${SHOWEP} ${SEASONO}" | sed -E 's/HOLDER(.+) HEYLOOK([0-9]+)/\2\1/')
+WITHSEASON=$(echo "${SHOWEP} ${SEASONO}" | sed -E 's/HOLDER(.+) HEYLOOK([0-9]+)/\2\1/' | sed -E 's/\?//g')
 
 
 mkdir /Volumes/Storage\ Unit/^Departures/"${WITHSEASON}"
