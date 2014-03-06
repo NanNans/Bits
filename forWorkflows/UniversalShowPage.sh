@@ -9,7 +9,7 @@ echo "$@" #put everything onto one line
 echo "$1" | sed -E 's/^([0-9])([^0-9])/0\1 \2/' | sed -E 's/(.)$/\1 /' #put 0 in front of single digits and insert trailing space, so it can be correctly distinguished later from name of Safari window
 #result of above is set as variable "fullstring"
 
-echo "$1" | sed -E 's/[0-9]+(.+)/\1/' | sed -E 's/([[:alnum:][:punct:]]) $/\1/' | sed -E 's/[[:punct:]]//g' #cuts down to only stuff after digit to extract ep name, then gets rid of trailing space and punctuation
+echo "$1" | sed -E 's/[0-9]+(.+)/\1/' | sed -E 's/([[:alnum:][:punct:]]) $/\1/' #cuts down to only stuff after digit to extract ep name, then gets rid of trailing space
 #result of above is sent to file tempsearchstring.txt
 
 #returning to "fullstring" and passing it to:
