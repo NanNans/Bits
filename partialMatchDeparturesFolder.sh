@@ -3,8 +3,9 @@
 shopt -s nocasematch
 
 FN1=$(basename "$1")
+DN1=$(dirname "$1")
 CLEANNAME="${FN1%.*}"
-echo "$CLEANNAME"
+#echo "$CLEANNAME"
 get_name()
 {
 #to match Show.s00e00.0000-0000.Episode(.mp4)
@@ -30,20 +31,32 @@ echo "${NEWNAME}" | sed -E 's/[[:punct:]]//g' | sed -E 's/[0-9][0-9][0-9][0-9] *
 }
 
 PARSE=$(get_name "$CLEANNAME")
-echo "$PARSE"
+#echo "$PARSE"
 
-for dir in ls -maxdepth 1 /Volumes/Storage\ Unit/^Departures/*/
-do
-FNDIR=$(basename "$dir")
-FOLDERQUERIED=$(echo "$FNDIR" | sed -E 's/(.*)\- [0-9]*x[0-9]* - (.*)/\1 \2/' | sed -E 's/[[:punct:]]//g' | sed -E 's/  / /g')
-#echo "$FOLDERQUERIED"
-if [[ $FOLDERQUERIED =~ $PARSE ]] ; then
-	mv "$1" "$dir"
-	echo "GoodRun"
+EXISTDIRMATCH=$(ls -d /Volumes/Storage\ Unit/^Departures/*/ | egrep -c -i -e "$PARSE")
+#echo "$EXISTDIRMATCH"
+
+EXISTSUBS=$(ls "$DN1" | egrep -c -i -e "$CLEANNAME.srt" )
+#echo "$EXISTSUBS"
+
+if [[ $EXISTDIRMATCH = 1 ]] ; then
+	for dir in /Volumes/Storage\ Unit/^Departures/*/
+	do
+	FNDIR=$(basename "$dir")
+	FOLDERQUERIED=$(echo "$FNDIR" | sed -E 's/(.*)\- [0-9]*x[0-9]* - (.*)/\1 \2/' | sed -E 's/[[:punct:]]//g' | sed -E 's/  / /g')
+	#echo "$FOLDERQUERIED"
+	if [[ $FOLDERQUERIED =~ $PARSE ]] ; then
+		mv "$1" "$dir"
+		if [[ $EXISTSUBS = 1 ]] ; then mv "$DN1/$CLEANNAME.srt" "$dir"
+		fi
+#		wait 20
+		osascript -e "tell application \"Finder\" to set label index of alias POSIX file \"$dir\" to \"6\""
+		echo "GoodRun"
+	fi
+	done
 else
 	osascript -e "tell application \"Finder\" to set label index of alias POSIX file \"$1\" to \"1\""
 fi
-done
 
 
 shopt -u nocasematch
