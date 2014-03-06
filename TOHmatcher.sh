@@ -21,7 +21,7 @@ if [[ $EXISTDIRMATCH = 1 ]] ; then
 	FNDIR=$(basename "$dir")
 	if [[ $FNDIR =~ "This Old House" ]] ; then
 		mv "$1" "$dir"
-		wait 20
+#		wait 20
 		osascript -e "tell application \"Finder\" to set label index of alias POSIX file \"$dir\" to \"6\""
 		echo "GoodRun"
 	fi
