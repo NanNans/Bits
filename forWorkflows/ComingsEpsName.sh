@@ -16,7 +16,7 @@ if [[ "$MATCH_COMINGEPS" = "1" ]] ; then
 elif [[ "$MATCH_TVDB" = "1" ]] ; then
 	NEW=$(echo "$NAME" | sed -E 's/([0-9][0-9]*) ([0-9][0-9]*) :/- \1x\2 -/')
 fi
-echo "${NEW}" | sed -E 's/   */ /g'
+echo "${NEW}" | sed -E 's/   */ /g' | sed -E 's/[^[:alnum:]\ \-]//g'
 }
 
 FOUND=$(parse_name "${LONG}")
