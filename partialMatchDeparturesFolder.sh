@@ -44,7 +44,7 @@ if [[ $EXISTDIRMATCH = 1 ]] ; then
 	do
 	FNDIR=$(basename "$dir")
 	FOLDERQUERIED=$(echo "$FNDIR" | sed -E 's/(.*)\- [0-9]*x[0-9]* - (.*)/\1 \2/' | sed -E 's/[[:punct:]]//g' | sed -E 's/  / /g')
-	#echo "$FOLDERQUERIED"
+#	echo "$FOLDERQUERIED"
 	if [[ $FOLDERQUERIED =~ $PARSE ]] ; then
 		mv "$1" "$dir"
 		if [[ $EXISTSUBS = 1 ]] ; then mv "$DN1/$CLEANNAME.srt" "$dir"
