@@ -14,7 +14,7 @@ echo "$1" | sed -E 's/[0-9]+(.+)/\1/' | sed -E 's/([[:alnum:][:punct:]]) $/\1/' 
 
 #returning to "fullstring" and passing it to:
 #run applescript -getShowName, returns "fullstring name of Safari window" as one argument
-{SHOWTITLE=$(echo "$1" | sed -E 's/(.*) Sick Beard.*- (.*)/\2 OOGABOOGA\1/')
+{SHOWTITLE=$(echo "$1" | sed -E 's/(.*) SickRage.*- (.*)/\2 OOGABOOGA\1/')
 
 echo "${SHOWTITLE}"} #extracts show name from Safari window as everything after last -, then inserts OOGABOOGA to tag the ep number and ep name.
 #above is set as variable "showName"
