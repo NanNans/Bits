@@ -36,8 +36,10 @@ PARSE=$(get_name "$CLEANNAME")
 EXISTDIRMATCH=$(ls -d /Volumes/Storage\ Unit/^Departures/*/ | egrep -c -i -e "$PARSE")
 #echo "$EXISTDIRMATCH"
 
-EXISTSUBS=$(ls "$DN1" | egrep -c -i -e "$CLEANNAME.srt" )
+EXISTSUBS=$(ls "$DN1" | egrep -c -i -e "$CLEANNAME.en.srt" )
 #echo "$EXISTSUBS"
+
+EXISTSTHUMB=$(ls "$DN1" | egrep -c -i -e "$CLEANNAME.tbn" )
 
 if [[ $EXISTDIRMATCH = 1 ]] ; then
 	for dir in /Volumes/Storage\ Unit/^Departures/*/
@@ -47,7 +49,9 @@ if [[ $EXISTDIRMATCH = 1 ]] ; then
 #	echo "$FOLDERQUERIED"
 	if [[ $FOLDERQUERIED =~ $PARSE ]] ; then
 		mv "$1" "$dir"
-		if [[ $EXISTSUBS = 1 ]] ; then mv "$DN1/$CLEANNAME.srt" "$dir"
+		if [[ $EXISTSUBS = 1 ]] ; then mv "$DN1/$CLEANNAME.en.srt" "$dir"
+		fi
+		if [[ $EXISTSTHUMB = 1 ]] ; then mv "$DN1/$CLEANNAME.tbn" "$dir"
 		fi
 #		wait 20
 		osascript -e "tell application \"Finder\" to set label index of alias POSIX file \"$dir\" to \"6\""
