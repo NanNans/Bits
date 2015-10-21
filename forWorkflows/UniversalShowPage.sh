@@ -20,7 +20,7 @@ echo "${SHOWTITLE}"} #extracts show name from Safari window as everything after 
 #above is set as variable "showName"
 
 #run applescript -getSourceCode, returns source code of safari tab. Then passes to stdin and:
-grep -B 25 -U -f /Users/hannahherman/Staging\ Area/TempTxts/tempsearchstring.txt | grep -U 'tr class' | sed -E 's/.+season-([0-9]+).*/\1/' #searches the source code in stdin for contents of tempsearchstring, and returns the 25 preceding lines. The -U was important (forces it to search binary files). Next, extracts relevant line from the 25 found before. Finally, extracts season number (whether year format or just count)
+grep -B 100 -U -f /Users/hannahherman/Staging\ Area/TempTxts/tempsearchstring.txt | grep -U 'tr class' | tail -n 1 | sed -E 's/.+season-([0-9]+).*/\1/' #searches the source code in stdin for contents of tempsearchstring, and returns the 100 preceding lines. The -U was important (forces it to search binary files). Next, extracts relevant 'tr class' line (which contains season info) from the 100 found before. Because we found 100 lines (used to just be 25 but updates kept changing how far back we need to search), there may be multiple 'tr class' lines found, so we use tail -n 1 to find the last one, which will be the one closest to the search string and therefore the right one. Finally, extracts season number (whether year format or just count)
 #result of above is set as variable "seasonNumber"
 #returning to "showName"
 #both are passed as arg1 and arg2 to -finalCompiler
