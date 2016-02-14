@@ -15,7 +15,7 @@ get_cmnt()
 local LONG="$COMMENT"
 local EDIT=""
 
-EDIT=$(echo "${LONG}" | sed -E 's/(.+)(With |with )(.+,.+,[^\.]*)(.*)/\3/')
+EDIT=$(echo "${LONG}" | sed -E 's/(.+)(by |with |with panellists |With panellists)(.+,.+,[^\.]*)(.*)/\3/')
 
 echo "${EDIT}"
 }
