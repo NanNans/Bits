@@ -36,7 +36,7 @@ PARSE=$(get_name "$CLEANNAME")
 EXISTDIRMATCH=$(ls -d /Volumes/Storage\ Unit/^Departures/*/ | egrep -c -i -e "$PARSE")
 #echo "$EXISTDIRMATCH"
 
-EXISTSUBS=$(ls "$DN1" | egrep -c -i -e "$CLEANNAME.srt" )
+EXISTSUBS=$(ls "$DN1" | egrep -c -i -e "$CLEANNAME.en.srt" )
 #echo "$EXISTSUBS"
 
 EXISTSTHUMB=$(ls "$DN1" | egrep -c -i -e "$CLEANNAME.tbn" )
